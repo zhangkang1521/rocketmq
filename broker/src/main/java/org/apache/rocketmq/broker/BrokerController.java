@@ -679,7 +679,7 @@ public class BrokerController {
         }
 
         this.registerBrokerAll(true, false);
-
+		// 每30s，发送心跳包到namesrv
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override
@@ -691,6 +691,18 @@ public class BrokerController {
                 }
             }
         }, 1000 * 10, 1000 * 30, TimeUnit.MILLISECONDS);
+        // 测试用，发送一次
+//        this.scheduledExecutorService.schedule(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    BrokerController.this.registerBrokerAll(true, false);
+//                } catch (Throwable e) {
+//                    log.error("registerBrokerAll Exception", e);
+//                }
+//            }
+//        }, 1000 * 10, TimeUnit.MILLISECONDS);
 
         if (this.brokerStatsManager != null) {
             this.brokerStatsManager.start();

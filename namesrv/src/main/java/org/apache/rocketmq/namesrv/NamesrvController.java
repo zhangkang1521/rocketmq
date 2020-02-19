@@ -78,7 +78,7 @@ public class NamesrvController {
             Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), new ThreadFactoryImpl("RemotingExecutorThread_"));
 
         this.registerProcessor();
-
+        // 每10s扫描一次broker，将挂掉的broker删除
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

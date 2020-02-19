@@ -108,7 +108,7 @@ public class BrokerOuterAPI {
         final boolean oneway,
         final int timeoutMills) {
         RegisterBrokerResult registerBrokerResult = null;
-
+        // 向所有namesrv发送
         List<String> nameServerAddressList = this.remotingClient.getNameServerAddressList();
         if (nameServerAddressList != null) {
             for (String namesrvAddr : nameServerAddressList) {

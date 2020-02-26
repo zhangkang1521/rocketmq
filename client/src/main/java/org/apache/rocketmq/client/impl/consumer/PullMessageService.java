@@ -81,6 +81,7 @@ public class PullMessageService extends ServiceThread {
 
     @Override
     public void run() {
+        // 拉取消息任务
         log.info(this.getServiceName() + " service started");
 
         while (!this.isStopped()) {

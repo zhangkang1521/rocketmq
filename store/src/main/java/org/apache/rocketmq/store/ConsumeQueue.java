@@ -138,7 +138,7 @@ public class ConsumeQueue {
                 }
             }
 
-            processOffset += mappedFileOffset;
+            processOffset += mappedFileOffset; // 物理偏移量
             this.mappedFileQueue.setFlushedWhere(processOffset);
             this.mappedFileQueue.setCommittedWhere(processOffset);
             this.mappedFileQueue.truncateDirtyFiles(processOffset);
@@ -376,6 +376,7 @@ public class ConsumeQueue {
     }
 
     public void putMessagePositionInfoWrapper(DispatchRequest request) {
+        // 队列文件存储
         final int maxRetries = 30;
         boolean canWrite = this.defaultMessageStore.getRunningFlags().isCQWriteable();
         for (int i = 0; i < maxRetries && canWrite; i++) {
@@ -421,14 +422,14 @@ public class ConsumeQueue {
         final long cqOffset) {
 
         if (offset <= this.maxPhysicOffset) {
-            return true;
+            return true; // 由于异常退出，恢复commitLog文件，已经进消息队列了的消息，重新dispatch拒绝
         }
 
         this.byteBufferIndex.flip();
-        this.byteBufferIndex.limit(CQ_STORE_UNIT_SIZE);
-        this.byteBufferIndex.putLong(offset);
-        this.byteBufferIndex.putInt(size);
-        this.byteBufferIndex.putLong(tagsCode);
+        this.byteBufferIndex.limit(CQ_STORE_UNIT_SIZE); // 队列文件每个单元20字节
+        this.byteBufferIndex.putLong(offset); // 物理偏移 8
+        this.byteBufferIndex.putInt(size); // 消息size 4
+        this.byteBufferIndex.putLong(tagsCode); // 8
 
         final long expectLogicOffset = cqOffset * CQ_STORE_UNIT_SIZE;
 

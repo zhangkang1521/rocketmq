@@ -204,7 +204,7 @@ public class MappedFile extends ReferenceResource {
 
         int currentPos = this.wrotePosition.get();
 
-        if (currentPos < this.fileSize) {
+        if (currentPos < this.fileSize) { // 当前写指针肯定小于文件大小
             ByteBuffer byteBuffer = writeBuffer != null ? writeBuffer.slice() : this.mappedByteBuffer.slice();
             byteBuffer.position(currentPos);
             AppendMessageResult result = null;
@@ -223,6 +223,7 @@ public class MappedFile extends ReferenceResource {
         return new AppendMessageResult(AppendMessageStatus.UNKNOWN_ERROR);
     }
 
+    /** 取文件名即偏移量 */
     public long getFileFromOffset() {
         return this.fileFromOffset;
     }
@@ -280,7 +281,7 @@ public class MappedFile extends ReferenceResource {
                     if (writeBuffer != null || this.fileChannel.position() != 0) {
                         this.fileChannel.force(false);
                     } else {
-                        this.mappedByteBuffer.force();
+                        this.mappedByteBuffer.force(); // 刷盘
                     }
                 } catch (Throwable e) {
                     log.error("Error occurred when force data to disk.", e);

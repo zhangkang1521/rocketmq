@@ -48,8 +48,8 @@ public class IndexService {
 
     public IndexService(final DefaultMessageStore store) {
         this.defaultMessageStore = store;
-        this.hashSlotNum = store.getMessageStoreConfig().getMaxHashSlotNum();
-        this.indexNum = store.getMessageStoreConfig().getMaxIndexNum();
+        this.hashSlotNum = store.getMessageStoreConfig().getMaxHashSlotNum(); // 500w
+        this.indexNum = store.getMessageStoreConfig().getMaxIndexNum(); // 2000w
         this.storePath =
             StorePathConfigHelper.getStorePathIndex(store.getMessageStoreConfig().getStorePathRootDir());
     }
@@ -194,6 +194,7 @@ public class IndexService {
         return new QueryOffsetResult(phyOffsets, indexLastUpdateTimestamp, indexLastUpdatePhyoffset);
     }
 
+    // 索引key topic+msgId
     private String buildKey(final String topic, final String key) {
         return topic + "#" + key;
     }

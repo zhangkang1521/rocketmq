@@ -213,6 +213,7 @@ public class BrokerStartup {
                 System.exit(-3);
             }
 
+            // 正常退出的函数钩子
             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
                 private volatile boolean hasShutdown = false;
                 private AtomicInteger shutdownTimes = new AtomicInteger(0);

@@ -547,6 +547,7 @@ public class MessageStoreConfig {
         this.flushDelayOffsetInterval = flushDelayOffsetInterval;
     }
 
+    /** 默认true */
     public boolean isCleanFileForciblyEnable() {
         return cleanFileForciblyEnable;
     }

@@ -443,6 +443,7 @@ public class DefaultMessageStore implements MessageStore {
     public GetMessageResult getMessage(final String group, final String topic, final int queueId, final long offset,
         final int maxMsgNums,
         final MessageFilter messageFilter) {
+        // consumer 拉取消息
         if (this.shutdown) {
             log.warn("message store has shutdown, so getMessage is forbidden");
             return null;
@@ -1768,6 +1769,7 @@ public class DefaultMessageStore implements MessageStore {
                                 	// 转发
                                     DefaultMessageStore.this.doDispatch(dispatchRequest);
 
+                                    // 长轮询开启则唤醒挂起线程
                                     if (BrokerRole.SLAVE != DefaultMessageStore.this.getMessageStoreConfig().getBrokerRole()
                                         && DefaultMessageStore.this.brokerConfig.isLongPollingEnable()) {
                                         DefaultMessageStore.this.messageArrivingListener.arriving(dispatchRequest.getTopic(),

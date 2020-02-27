@@ -236,7 +236,7 @@ public class MQClientInstance {
                     this.startScheduledTask();
                     // Start pull service 拉取消息线程启动
                     this.pullMessageService.start();
-                    // Start rebalance service
+                    // Start rebalance service 启动
                     this.rebalanceService.start();
                     // Start push service
                     this.defaultMQProducer.getDefaultMQProducerImpl().start(false);
@@ -282,6 +282,7 @@ public class MQClientInstance {
             }
         }, 10, this.clientConfig.getPollNameServerInterval(), TimeUnit.MILLISECONDS);
 
+        // 定时发送心跳
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

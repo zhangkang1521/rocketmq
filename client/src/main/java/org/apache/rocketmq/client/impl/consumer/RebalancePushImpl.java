@@ -170,7 +170,7 @@ public class RebalancePushImpl extends RebalanceImpl {
             case CONSUME_FROM_FIRST_OFFSET: {
                 long lastOffset = offsetStore.readOffset(mq, ReadOffsetType.READ_FROM_STORE);
                 if (lastOffset >= 0) {
-                    result = lastOffset;
+                    result = lastOffset; // 上次消费位置
                 } else if (-1 == lastOffset) {
                     result = 0L;
                 } else {

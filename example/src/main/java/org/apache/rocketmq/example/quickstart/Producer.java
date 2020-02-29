@@ -34,11 +34,11 @@ public class Producer {
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("producer-1");
         producer.setNamesrvAddr("localhost:9876");
-        producer.setDefaultTopicQueueNums(2); // 只要1个队列
+        producer.setDefaultTopicQueueNums(1); // 只要1个队列
         producer.start();
 
 //        producer.sendOneway(msg);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 1; i++) {
             Message msg = new Message("TopicTest", "tag1", "abc".getBytes(RemotingHelper.DEFAULT_CHARSET));
             SendResult sendResult = producer.send(msg, 1000*60*10);
             System.out.println(sendResult);

@@ -296,6 +296,7 @@ public class MQClientInstance {
             }
         }, 1000, this.clientConfig.getHeartbeatBrokerInterval(), TimeUnit.MILLISECONDS);
 
+        // 将消费进度发给borker
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

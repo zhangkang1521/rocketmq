@@ -841,7 +841,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                     SubscriptionData subscriptionData = FilterAPI.buildSubscriptionData(this.defaultMQPushConsumer.getConsumerGroup(),
                         retryTopic, SubscriptionData.SUB_ALL);
                     // TODO
-                    this.rebalanceImpl.getSubscriptionInner().put(retryTopic, subscriptionData);
+                    // this.rebalanceImpl.getSubscriptionInner().put(retryTopic, subscriptionData);
                     break;
                 default:
                     break;

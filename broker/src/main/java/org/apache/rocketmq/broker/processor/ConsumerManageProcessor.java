@@ -54,8 +54,10 @@ public class ConsumerManageProcessor implements NettyRequestProcessor {
                 // 查询同一个组的所有消费者
                 return this.getConsumerListByGroup(ctx, request);
             case RequestCode.UPDATE_CONSUMER_OFFSET:
+                // 更新消费进度
                 return this.updateConsumerOffset(ctx, request);
             case RequestCode.QUERY_CONSUMER_OFFSET:
+                // 查询消息队列消费进度
                 return this.queryConsumerOffset(ctx, request);
             default:
                 break;
@@ -125,7 +127,7 @@ public class ConsumerManageProcessor implements NettyRequestProcessor {
         final QueryConsumerOffsetRequestHeader requestHeader =
             (QueryConsumerOffsetRequestHeader) request
                 .decodeCommandCustomHeader(QueryConsumerOffsetRequestHeader.class);
-
+        // 消费进度
         long offset =
             this.brokerController.getConsumerOffsetManager().queryOffset(
                 requestHeader.getConsumerGroup(), requestHeader.getTopic(), requestHeader.getQueueId());

@@ -532,6 +532,7 @@ public class DefaultMessageStore implements MessageStore {
                                 }
                             }
 
+                            // 判断tag的hashcode是否相同，由于有hash冲突，消费端还要做一次过滤
                             if (messageFilter != null
                                 && !messageFilter.isMatchedByConsumeQueue(isTagsCodeLegal ? tagsCode : null, extRet ? cqExtUnit : null)) {
                                 if (getResult.getBufferTotalSize() == 0) {
@@ -551,6 +552,7 @@ public class DefaultMessageStore implements MessageStore {
                                 continue;
                             }
 
+                            // SQL92过滤
                             if (messageFilter != null
                                 && !messageFilter.isMatchedByCommitLog(selectResult.getByteBuffer().slice(), null)) {
                                 if (getResult.getBufferTotalSize() == 0) {

@@ -295,6 +295,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
                 // System.out.println("success回调" + new Date());
                 // 拉取消息成功回调
                 if (pullResult != null) {
+                    // 再根据tag过滤一次
                     pullResult = DefaultMQPushConsumerImpl.this.pullAPIWrapper.processPullResult(pullRequest.getMessageQueue(), pullResult,
                         subscriptionData);
 
@@ -309,6 +310,7 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
 
                             long firstMsgOffset = Long.MAX_VALUE;
                             if (pullResult.getMsgFoundList() == null || pullResult.getMsgFoundList().isEmpty()) {
+                                // tag hash冲突，被消费端过滤掉了
                                 DefaultMQPushConsumerImpl.this.executePullRequestImmediately(pullRequest);
                             } else {
                                 firstMsgOffset = pullResult.getMsgFoundList().get(0).getQueueOffset();

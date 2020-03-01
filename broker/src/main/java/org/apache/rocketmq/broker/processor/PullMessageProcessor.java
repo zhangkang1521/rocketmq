@@ -226,7 +226,7 @@ public class PullMessageProcessor implements NettyRequestProcessor {
         }
 
         MessageFilter messageFilter;
-        if (this.brokerController.getBrokerConfig().isFilterSupportRetry()) {
+        if (this.brokerController.getBrokerConfig().isFilterSupportRetry()) { // 默认不支持
             messageFilter = new ExpressionForRetryMessageFilter(subscriptionData, consumerFilterData,
                 this.brokerController.getConsumerFilterManager());
         } else {

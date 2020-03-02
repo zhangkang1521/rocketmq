@@ -120,8 +120,9 @@ public class RebalanceLockManager {
         Set<MessageQueue> notLockedMqs = new HashSet<MessageQueue>(mqs.size());
 
         for (MessageQueue mq : mqs) {
+            // 判断clentId相同且没有过期60s，则认为锁定成功
             if (this.isLocked(group, mq, clientId)) {
-                lockedMqs.add(mq);
+                lockedMqs.add(mq); // 锁定成功的队列
             } else {
                 notLockedMqs.add(mq);
             }

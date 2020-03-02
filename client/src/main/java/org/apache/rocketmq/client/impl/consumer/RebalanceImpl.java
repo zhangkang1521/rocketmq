@@ -196,7 +196,7 @@ public abstract class RebalanceImpl {
                                 log.info("the message queue locked OK, Group: {} {}", this.consumerGroup, mq);
                             }
 
-                            processQueue.setLocked(true);
+                            processQueue.setLocked(true); // 加锁成功的队列
                             processQueue.setLastLockTimestamp(System.currentTimeMillis());
                         }
                     }
@@ -204,7 +204,7 @@ public abstract class RebalanceImpl {
                         if (!lockOKMQSet.contains(mq)) {
                             ProcessQueue processQueue = this.processQueueTable.get(mq);
                             if (processQueue != null) {
-                                processQueue.setLocked(false);
+                                processQueue.setLocked(false); // 加锁失败的队列
                                 log.warn("the message queue locked Failed, Group: {} {}", this.consumerGroup, mq);
                             }
                         }
@@ -282,6 +282,7 @@ public abstract class RebalanceImpl {
 
                     List<MessageQueue> allocateResult = null;
                     try {
+                        // 返回分配给自己的消息队列
                         allocateResult = strategy.allocate(
                             this.consumerGroup,
                             this.mQClientFactory.getClientId(),
@@ -370,6 +371,7 @@ public abstract class RebalanceImpl {
         List<PullRequest> pullRequestList = new ArrayList<PullRequest>();
         for (MessageQueue mq : mqSet) {
             if (!this.processQueueTable.containsKey(mq)) {
+                // 顺序消息需要锁定消息队列
                 if (isOrder && !this.lock(mq)) {
                     log.warn("doRebalance, {}, add a new mq failed, {}, because lock failed", consumerGroup, mq);
                     continue;

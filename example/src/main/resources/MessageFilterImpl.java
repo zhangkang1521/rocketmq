@@ -26,6 +26,7 @@ public class MessageFilterImpl implements MessageFilter {
     @Override
     public boolean match(MessageExt msg, FilterContext context) {
         String property = msg.getProperty("SequenceId");
+        System.out.println("SequenceId:" + property);
         if (property != null) {
             int id = Integer.parseInt(property);
             if (((id % 10) == 0) &&

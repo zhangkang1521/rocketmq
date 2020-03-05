@@ -70,6 +70,7 @@ public class DefaultRequestProcessor implements NettyRequestProcessor {
 
         switch (request.getCode()) {
             case RequestCode.REGISTER_MESSAGE_FILTER_CLASS:
+                // 注册过滤类代码
                 return registerMessageFilterClass(ctx, request);
             case RequestCode.PULL_MESSAGE:
                 return pullMessageForward(ctx, request);

@@ -890,9 +890,10 @@ public class DefaultMQPushConsumerImpl implements MQConsumerInner {
             SubscriptionData subscriptionData = FilterAPI.buildSubscriptionData(this.defaultMQPushConsumer.getConsumerGroup(),
                 topic, "*");
             subscriptionData.setSubString(fullClassName);
-            subscriptionData.setClassFilterMode(true);
+            subscriptionData.setClassFilterMode(true); // 设置为类过滤模式
             subscriptionData.setFilterClassSource(filterClassSource);
             this.rebalanceImpl.getSubscriptionInner().put(topic, subscriptionData);
+            // 发送心跳到所有broker
             if (this.mQClientFactory != null) {
                 this.mQClientFactory.sendHeartbeatToAllBrokerWithLock();
             }

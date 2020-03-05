@@ -42,6 +42,7 @@ public class FiltersrvStartup {
     public static Logger log;
 
     public static void main(String[] args) {
+        // 配置环境变量 ROCKETMQ_HOME NAMESRV_ADDR
         start(createController(args));
     }
 

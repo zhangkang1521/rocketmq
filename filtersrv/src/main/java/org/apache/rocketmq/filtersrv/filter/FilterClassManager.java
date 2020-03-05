@@ -131,8 +131,10 @@ public class FilterClassManager {
                     filterClassInfoNew.setClassCRC(0);
                     filterClassInfoNew.setMessageFilter(null);
 
+                    // 默认运行客户端上传代码
                     if (this.filtersrvController.getFiltersrvConfig().isClientUploadFilterClassEnable()) {
                         String javaSource = new String(filterSourceBinary, MixAll.DEFAULT_CHARSET);
+                        // 调用JavaCompile进行编译
                         Class<?> newClass = DynaCode.compileAndLoadClass(className, javaSource);
                         Object newInstance = newClass.newInstance();
                         filterClassInfoNew.setMessageFilter((MessageFilter) newInstance);

@@ -74,6 +74,7 @@ public class FiltersrvController {
 
         this.registerProcessor();
 
+        // 每10s向broker注册自己
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

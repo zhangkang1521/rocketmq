@@ -38,7 +38,7 @@ public class Consumer {
         consumer.setNamesrvAddr("localhost:9876");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.subscribe("TopicTest", "*");
-        /*consumer.registerMessageListener(new MessageListenerConcurrently() {
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
@@ -52,9 +52,9 @@ public class Consumer {
                 System.out.printf("%s Receive New Messages: %s end %n ", Thread.currentThread().getName(), msgs);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
-        });*/
+        });
 
-        consumer.registerMessageListener(new MessageListenerOrderly() {
+        /*consumer.registerMessageListener(new MessageListenerOrderly() {
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
                 System.out.printf("%s Receive New Messages: %s start %n", Thread.currentThread().getName(), msgs);
@@ -66,7 +66,7 @@ public class Consumer {
                 System.out.printf("%s Receive New Messages: %s end %n ", Thread.currentThread().getName(), msgs);
                 return ConsumeOrderlyStatus.SUCCESS;
             }
-        });
+        });*/
 
         consumer.start();
         System.out.printf("Consumer Started.%n");

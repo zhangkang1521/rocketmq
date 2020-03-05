@@ -25,19 +25,16 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 public class Producer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
+        producer.setNamesrvAddr("localhost:9876");
         producer.start();
 
         try {
-            for (int i = 0; i < 6000000; i++) {
-                Message msg = new Message("TopicFilter7",
-                    "TagA",
-                    "OrderID001",
-                    "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
 
-                msg.putUserProperty("SequenceId", String.valueOf(i));
+                Message msg = new Message("TopicTest", "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
+                msg.putUserProperty("SequenceId", String.valueOf(122));
                 SendResult sendResult = producer.send(msg);
                 System.out.printf("%s%n", sendResult);
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

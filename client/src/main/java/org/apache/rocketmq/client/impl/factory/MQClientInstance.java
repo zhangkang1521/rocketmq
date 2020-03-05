@@ -453,7 +453,7 @@ public class MQClientInstance {
         if (this.lockHeartbeat.tryLock()) {
             try {
                 this.sendHeartbeatToAllBroker();
-                this.uploadFilterClassSource();
+                this.uploadFilterClassSource(); // 上传过滤类
             } catch (final Exception e) {
                 log.error("sendHeartbeatToAllBroker exception", e);
             } finally {
@@ -738,6 +738,7 @@ public class MQClientInstance {
         }
 
         TopicRouteData topicRouteData = this.topicRouteTable.get(topic);
+        // 路由信息中有FilterServerTable
         if (topicRouteData != null
             && topicRouteData.getFilterServerTable() != null && !topicRouteData.getFilterServerTable().isEmpty()) {
             Iterator<Entry<String, List<String>>> it = topicRouteData.getFilterServerTable().entrySet().iterator();

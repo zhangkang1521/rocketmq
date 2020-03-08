@@ -70,7 +70,7 @@ public class PullAPIWrapper {
     public PullResult processPullResult(final MessageQueue mq, final PullResult pullResult,
         final SubscriptionData subscriptionData) {
         PullResultExt pullResultExt = (PullResultExt) pullResult;
-
+        // 更新下次拉取的建议
         this.updatePullFromWhichNode(mq, pullResultExt.getSuggestWhichBrokerId());
         if (PullStatus.FOUND == pullResult.getPullStatus()) {
             ByteBuffer byteBuffer = ByteBuffer.wrap(pullResultExt.getMessageBinary());
@@ -238,7 +238,7 @@ public class PullAPIWrapper {
         if (this.isConnectBrokerByUser()) {
             return this.defaultBrokerId;
         }
-
+        // 决定从那台服务器拉取
         AtomicLong suggest = this.pullFromWhichNodeTable.get(mq);
         if (suggest != null) {
             return suggest.get();

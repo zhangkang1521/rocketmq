@@ -44,12 +44,12 @@ public class Consumer {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                 ConsumeConcurrentlyContext context) {
                 System.out.printf("%s Receive New Messages: %s start %n", Thread.currentThread().getName(), msgs);
-                try {
-                    Thread.sleep(new Random().nextInt(10000));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.printf("%s Receive New Messages: %s end %n ", Thread.currentThread().getName(), msgs);
+//                try {
+//                    Thread.sleep(new Random().nextInt(10000));
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.printf("%s Receive New Messages: %s end %n ", Thread.currentThread().getName(), msgs);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });

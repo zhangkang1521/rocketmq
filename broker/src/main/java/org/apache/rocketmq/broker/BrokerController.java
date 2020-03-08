@@ -361,9 +361,10 @@ public class BrokerController {
                     this.messageStore.updateHaMasterAddress(this.messageStoreConfig.getHaMasterAddress());
                     this.updateMasterHAServerAddrPeriodically = false;
                 } else {
-                    this.updateMasterHAServerAddrPeriodically = true;
+                    this.updateMasterHAServerAddrPeriodically = true; // 从namesrv拉取master地址
                 }
 
+                // 1分钟同步一次队列消费进度等
                 this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
                     @Override
